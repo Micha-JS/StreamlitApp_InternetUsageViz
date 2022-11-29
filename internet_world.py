@@ -11,17 +11,22 @@ def load_data(path):
     df = pd.read_csv(path)
     return df
 
+def load_geojson(path):
+    gj = geojson.load(path)
+    return gj
+
 st.title("Internet usage per country in percentage")
 st.header("Data Exploration")
 
 
-with open('/Users/mjs/Documents/DS_Projects/My_first_streamlitapp/countries.geojson') as f:
-    countries = geojson.load(f)
-features = gj['features'][0]
+#with open('/Users/mjs/Documents/DS_Projects/My_first_streamlitapp/countries.geojson') as f:
+ #   countries = geojson.load(f)
+
 
 internet_df = pd.read_csv('/Users/mjs/Documents/DS_Projects/My_first_streamlitapp/share-of-individuals-using-the-internet.csv')
 internet_df.rename(columns={'Individuals using the Internet (% of population)':'usage_internet'}, inplace=True)
 
+countries = load_geojson('/Users/mjs/Documents/DS_Projects/My_first_streamlitapp/countries.geojson')
 
 
 
