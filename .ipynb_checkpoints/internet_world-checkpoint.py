@@ -19,14 +19,14 @@ st.title("Internet usage per country in percentage")
 st.header("Data Exploration")
 
 
-#with open('/Users/mjs/Documents/DS_Projects/My_first_streamlitapp/countries.geojson') as f:
- #   countries = geojson.load(f)
+with open('countries.geojson') as f:
+    countries = geojson.load(f)
 
 
-internet_df = pd.read_csv('/Users/mjs/Documents/DS_Projects/My_first_streamlitapp/share-of-individuals-using-the-internet.csv')
+internet_df = pd.read_csv('share-of-individuals-using-the-internet.csv')
 internet_df.rename(columns={'Individuals using the Internet (% of population)':'usage_internet'}, inplace=True)
 
-countries = load_geojson('/Users/mjs/Documents/DS_Projects/My_first_streamlitapp/countries.geojson')
+#countries = load_geojson('/Users/mjs/Documents/DS_Projects/My_first_streamlitapp/countries.geojson')
 
 
 
