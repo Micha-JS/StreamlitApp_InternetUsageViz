@@ -1,4 +1,3 @@
-@st.cache
 
 
 import plotly.graph_objects as go
@@ -7,6 +6,7 @@ import plotly.io as pio
 import geojson
 import pandas as pd
 
+@st.cache
 
 def load_data(path):
     df = pd.read_csv(path)
