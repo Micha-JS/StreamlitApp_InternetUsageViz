@@ -49,6 +49,10 @@ fig = px.choropleth(internet_df[internet_df['Year'] == year], geojson=countries,
                            labels={'usage_internet':'Individuals using the Internet in %'}
                           )
 
-st.plotly_chart(fig)
+
+fig.update_layout(height=800)
+
+st.plotly_chart(fig,height=800)
+
 
 
