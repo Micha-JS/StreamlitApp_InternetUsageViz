@@ -38,7 +38,7 @@ if st.checkbox("Show Dataframe"):
 left_column, middle_column, right_column = st.columns([3, 1, 1])
 
 # Widgets: selectbox years
-years = ["All"]+sorted(pd.unique(internet_df['Year']))
+years = sorted(pd.unique(internet_df['Year']))
 year = left_column.selectbox("Choose a Year", years)
 
 # Flow control and plotting
