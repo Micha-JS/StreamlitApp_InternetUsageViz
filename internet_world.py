@@ -45,7 +45,7 @@ year = left_column.selectbox("Choose a Year", years)
 
 
 
-fig = px.choropleth(internet_df[internet_df[year] == 2000], 
+fig = px.choropleth(internet_df[internet_df['Year'] == year], 
                     geojson=countries, locations='Code', 
                     color='usage_internet',
                     color_continuous_scale="thermal",
