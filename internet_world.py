@@ -1,6 +1,28 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2639
-\cocoatextscaling0\cocoaplatform0{\fonttbl}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-}
+import plotly.graph_objects as go
+import plotly.express as px
+import plotly.io as pio
+import geojson
+import pandas as pd
+
+
+def load_data(path):
+    df = pd.read_csv(path)
+    return df
+
+
+with open('/Users/mjs/Documents/DS_Projects/My_first_streamlitapp/countries.geojson') as f:
+    countries = geojson.load(f)
+features = gj['features'][0]
+
+internet_df = pd.read_csv('/Users/mjs/Documents/DS_Projects/My_first_streamlitapp/share-of-individuals-using-the-internet.csv')
+internet_df.rename(columns={'Individuals using the Internet (% of population)':'usage_internet'}, inplace=True)
+
+
+fig = px.choropleth(internet_df[internet_df['Year'] == 2010], geojson=countries, locations='Code', color='usage_internet',
+                           color_continuous_scale="Viridis",
+                           scope='world',
+                           featureidkey="properties.ISO_A3",
+                           labels={'usage_internet':'Individuals using the Internet in %'}
+                          )
+
+fig.show()
