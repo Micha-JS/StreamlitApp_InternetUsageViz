@@ -42,26 +42,19 @@ years = ["All"]+sorted(pd.unique(internet_df['Year']))
 year = left_column.selectbox("Choose a Year", years)
 
 # Flow control and plotting
-'''if year == 'All':
-    reduced_df = internet_df[internet_df['Year'] == 2000]
-else:
-    reduced_df = internet_df[internet_df["Year"] == year]'''
+
 
 
 fig = px.choropleth(internet_df[internet_df['Year'] == 2000], 
                     geojson=countries, locations='Code', 
                     color='usage_internet',
-                    color_continuous_scale="Prism",
+                    color_continuous_scale="thermal",
                     scope='world',
                     featureidkey="properties.ISO_A3",
                     labels={'usage_internet':'Individuals using the Internet in %'},
                     width=800, 
                     height=400
                           )
-fig.update_layout(
-    margin=dict(l=20, r=20, t=20, b=20),
-    paper_bgcolor="LightSteelBlue",
-)
 
 
 
