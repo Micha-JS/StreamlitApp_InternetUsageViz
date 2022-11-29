@@ -41,8 +41,14 @@ left_column, middle_column, right_column = st.columns([3, 1, 1])
 years = ["All"]+sorted(pd.unique(internet_df['Year']))
 year = left_column.selectbox("Choose a Year", years)
 
+# Flow control and plotting
+if year == None:
+    reduced_df = internet_df[internet_df['Year'] == 2000]
+else:
+    reduced_df = internet_df[internet_df["Year"] == year]
 
-fig = px.choropleth(internet_df[internet_df['Year'] == year], 
+
+fig = px.choropleth(reduced_df, 
                     geojson=countries, locations='Code', 
                     color='usage_internet',
                     color_continuous_scale="Prism",
