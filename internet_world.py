@@ -62,3 +62,9 @@ st.plotly_chart(fig, width=800, height=400)
 
 
 
+fig_1 = px.line(internet_df[internet_df['Code'] == 'SAU'], x="Year", y="usage_internet", title='Population internet usage')
+
+
+st.plotly_chart(fig_1)
+
+
