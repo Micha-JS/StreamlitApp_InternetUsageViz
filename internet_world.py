@@ -34,8 +34,13 @@ if st.checkbox("Show Dataframe"):
     st.subheader("This is my dataset:")
     st.dataframe(data=internet_df)
 
+    
+# Widgets: selectbox years
+years = ["All"]+sorted(pd.unique(internet_df['Year']))
+year = left_column.selectbox("Choose a Year", years)
 
-fig = px.choropleth(internet_df[internet_df['Year'] == 2010], geojson=countries, locations='Code', color='usage_internet',
+
+fig = px.choropleth(internet_df[internet_df['Year'] == year], geojson=countries, locations='Code', color='usage_internet',
                            color_continuous_scale="Viridis",
                            scope='world',
                            featureidkey="properties.ISO_A3",
@@ -45,10 +50,3 @@ fig = px.choropleth(internet_df[internet_df['Year'] == 2010], geojson=countries,
 st.plotly_chart(fig)
 
 
-
-# Setting up columns
-left_column, middle_column, right_column = st.columns([3, 1, 1])
-
-# Widgets: selectbox years
-years = ["All"]+sorted(pd.unique(internet_df['Year']))
-year = left_column.selectbox("Choose a Year", years)
