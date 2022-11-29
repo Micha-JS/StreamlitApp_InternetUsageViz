@@ -42,7 +42,7 @@ years = ["All"]+sorted(pd.unique(internet_df['Year']))
 year = left_column.selectbox("Choose a Year", years)
 
 # Flow control and plotting
-if year == None:
+if year == 'All':
     reduced_df = internet_df[internet_df['Year'] == 2000]
 else:
     reduced_df = internet_df[internet_df["Year"] == year]
