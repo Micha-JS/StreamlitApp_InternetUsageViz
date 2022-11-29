@@ -42,17 +42,24 @@ years = ["All"]+sorted(pd.unique(internet_df['Year']))
 year = left_column.selectbox("Choose a Year", years)
 
 
-fig = px.choropleth(internet_df[internet_df['Year'] == year], geojson=countries, locations='Code', color='usage_internet',
-                           color_continuous_scale="Viridis",
-                           scope='world',
-                           featureidkey="properties.ISO_A3",
-                           labels={'usage_internet':'Individuals using the Internet in %'}
+fig = px.choropleth(internet_df[internet_df['Year'] == year], 
+                    geojson=countries, locations='Code', 
+                    color='usage_internet',
+                    color_continuous_scale="Prism",
+                    scope='world',
+                    featureidkey="properties.ISO_A3",
+                    labels={'usage_internet':'Individuals using the Internet in %'},
+                    width=800, 
+                    height=400
                           )
+fig.update_layout(
+    margin=dict(l=20, r=20, t=20, b=20),
+    paper_bgcolor="LightSteelBlue",
+)
 
 
-fig.update_layout(height=800)
 
-st.plotly_chart(fig,height=800)
+st.plotly_chart(fig, width=800, height=400)
 
 
 
