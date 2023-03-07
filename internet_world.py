@@ -25,37 +25,93 @@ if st.checkbox("Show data"):
     st.dataframe(data=internet_df)
 
 # Setting up columns
-left_column, middle_column, right_column = st.columns([3, 1, 1])
+left_column, middle_column, right_column = st.columns([3,1,1])
+
 
 # Widgets: selectbox years
 years = sorted(pd.unique(internet_df['Year']))
 year = left_column.selectbox("Choose a year", years)
 
-# Flow control and plotting
+
 
 
 
 fig = px.choropleth(internet_df[internet_df['Year'] == year], 
-                    geojson=countries, locations='Code', 
+                    geojson=countries, locations='Code',
                     color='internet_usage',
                     color_continuous_scale="thermal",
                     scope='world',
                     featureidkey="properties.ISO_A3",
-                    labels={'internet_usage':'Individuals using the internet in %'},
-                    width=800, 
-                    height=400
+                    labels={'internet_usage':'Internet usage in % '},
+
+                    width=1200,
+                    height=600
                           )
 
-
+fig.update_layout(title_text='Individuals using the internet per country in percent',
+                  title_x=0.5,
+                  font_family = 'verdana',
+                  title_font_family="verdana"
+                  )
 
 st.plotly_chart(fig, width=1200, height=600)
 
 
 
-fig_1 = px.line(internet_df[internet_df['Code'] == 'SAU'],
-                x="Year",
-                y="internet_usage",
-                title='Population internet usage')
+# Widgets: selectbox country
+# Setting up columns
+left_column, middle_column, right_column = st.columns([3,1,1])
+country = sorted(pd.unique(internet_df['Entity']))
+#cntr = left_column.selectbox("Choose a country", country)
+cntr = left_column.multiselect("Choose a country",
+                               country,
+                               default=['Latvia','Andorra','Lebanon','Australia','Germany'],
+                               max_selections = 5)
+
+
+
+def add_trace_f(num = 1):
+    fig_1.add_trace(go.Scatter(x=internet_df[internet_df['Entity']==cntr[num]]['Year'],
+                             y=internet_df[internet_df['Entity']==cntr[num]]['internet_usage'],
+                            mode='lines',
+                            name=cntr[num]))
+
+fig_1 = go.Figure()
+
+if len(cntr) == 5:
+    for i in range(len(cntr)):
+        add_trace_f(num = i)
+
+if len(cntr) == 4:
+    for i in range(len(cntr)):
+        add_trace_f(num = i)
+
+if len(cntr) == 3:
+    for i in range(len(cntr)):
+        add_trace_f(num = i)
+
+if len(cntr) == 2:
+    for i in range(len(cntr)):
+        add_trace_f(num = i)
+
+if len(cntr) == 1:
+    for i in range(len(cntr)):
+        add_trace_f(num = i)
+
+
+fig_1.update_layout(
+    title= {'text':"Individuals using the internet per country in percent",
+            'y': 0.9,
+            'x': 0.5,
+            'xanchor': 'center',
+            'yanchor': 'top'
+            },
+    xaxis_title="Year",
+    yaxis_title="Internet usage in %",
+    font={
+        'family':"verdana, monospace",
+        'size':12}
+    )
 
 
 st.plotly_chart(fig_1)
