@@ -51,12 +51,12 @@ fig = px.choropleth(internet_df[internet_df['Year'] == year],
                           )
 
 fig.update_layout(title_text='Individuals using the internet per country in percent',
-                  title_x=0.5,
+                  #title_x=0.5,
                   font_family = 'verdana',
                   title_font_family="verdana"
                   )
 
-st.plotly_chart(fig, width=1200, height=600)
+#st.plotly_chart(fig, width=1200, height=600)
 
 
 

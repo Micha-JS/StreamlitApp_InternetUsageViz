@@ -1,22 +1,22 @@
-FROM python:3.9-slim
+# app/Dockerfile
 
-EXPOSE 5000/tcp
+FROM python:3.9-slim
 
 WORKDIR /app
 
-COPY requirements_docker.txt ./
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    software-properties-common \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 
-# install  pip in conda base environment
-RUN conda install pip -y
+RUN git clone https://github.com/Micha-JS/StreamlitApp_InternetUsageViz.git .
 
-# Install all the dependencies
-RUN pip install -r requirements_docker.txt
+RUN pip3 install -r requirements_docker.txt
 
-COPY . . 
+EXPOSE 8501
 
-RUN /Users/mjs/Documents/DS_Projects/StreamlitApp_InternetUsageViz/app/internet_world.py
+HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
 
-
-#CMD echo 'Hello from the other side'
-
-
+ENTRYPOINT ["streamlit", "run", "internet_world.py", "--server.port=8501", "--server.address=0.0.0.0"]
