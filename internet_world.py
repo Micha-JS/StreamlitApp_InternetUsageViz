@@ -63,7 +63,7 @@ fig.update_layout(
                   )
 
 
-
+st.plotly_chart(fig)
 
 
 
