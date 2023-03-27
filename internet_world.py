@@ -52,9 +52,9 @@ fig = px.choropleth(internet_df[internet_df['Year'] == year],
 
 fig.update_layout(
     title = {'text':'Individuals using the internet per country in percent',
-             #'y': 0.9,
-             #'x': 0.5,
-             'xanchor': 'left',
+             'y': 0.9,
+             'x': 0.5,
+             'xanchor': 'center',
              'yanchor': 'top'
              },
     font={
