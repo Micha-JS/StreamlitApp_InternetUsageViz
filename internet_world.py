@@ -38,19 +38,19 @@ year = left_column.selectbox("Choose a year", years, index = 15)
 
 
 
-fig = px.choropleth(internet_df[internet_df['Year'] == year], 
-                    geojson=countries, locations='Code',
-                    color='internet_usage',
-                    color_continuous_scale="thermal",
-                    scope='world',
-                    featureidkey="properties.ISO_A3",
-                    labels={'internet_usage':'Internet usage in %'},
+fig_go = go.Figure(data=go.Choropleth(
+    locations = internet_df[internet_df['Year'] == year]['Code'],
+    z = internet_df[internet_df['Year'] == year]['internet_usage'].round(2),
+    text = internet_df[internet_df['Year'] == year]['Entity'],
+    colorscale = 'thermal',
+    autocolorscale=False,
+    marker_line_color='darkgray',
+    marker_line_width=0.5,
+    colorbar_ticksuffix = '%',
+    colorbar_title = 'Internet <br>usage in %',
+))
 
-                    width=1200,
-                    height=600
-                          )
-
-fig.update_layout(
+fig_go.update_layout(
     title = {'text':'Individuals using the internet per country in percent',
              'y': 0.9,
              'x': 0.5,
@@ -59,11 +59,21 @@ fig.update_layout(
              },
     font={
         'family': "verdana, monospace",
-        'size': 12}
-                  )
+        'size': 12},
+    geo=dict(
+        showframe=True,
+        showcoastlines=True,
+        projection_type='equirectangular'
+    )
+)
 
+fig_go.update_coloraxes(colorbar_tickfont=dict(
+        family = 'Verdana',
+        size = 12
+    )
+)
 
-st.plotly_chart(fig)
+st.plotly_chart(fig_go)
 
 
 
