@@ -11,3 +11,6 @@ Data source: World Bank
 2. Open the terminal
 3. Go into the directory with the file internet_world.py (cd StreamlitApp_InternetUsageViz)
 4. Type in the terminal: streamlit run internet_world.py
+
+
+## It is also possible to build a Docker image.
